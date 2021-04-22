@@ -4,8 +4,17 @@ import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import StarIcon from '@material-ui/icons/Star';
+import {auth, provider} from '../firebase';
 
 function Header(props) {
+
+    const handleAuth = () => {
+        auth.signInWithPopup(provider).then((result) => {
+          console.log(result)
+        }).catch((error) => {
+            alert(error.message)
+        })
+    }
     return (
         <Nav>
             <Logo>
@@ -37,7 +46,7 @@ function Header(props) {
                 <span>SERIES</span>
                 </a>
             </NavMenu>
-            <Login>
+            <Login onClick={handleAuth}>
                 LOGIN
             </Login>
 
