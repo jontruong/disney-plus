@@ -7,7 +7,7 @@ import StarIcon from '@material-ui/icons/Star';
 import {useHistory} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {auth, provider} from '../firebase';
-import { selectUserName, selectUserPhoto, setUserLoginDetails } from '../features/user/userSlice';
+import { selectUserName, selectUserPhoto, setUserLoginDetails, setSignOutState } from '../features/user/userSlice';
 
 function Header(props) {
     const dispatch = useDispatch();
@@ -26,14 +26,22 @@ function Header(props) {
     
 
     const handleAuth = () => {
-        auth.signInWithPopup(provider)
-        .then((result) => {
-         setUser(result.user);
-        })
-        .catch((error) => {
-            alert(error.message)
-        })
-    }
+        if(!userName) {
+            auth.signInWithPopup(provider)
+            .then((result) => {
+             setUser(result.user);
+            })
+            .catch((error) => {
+                alert(error.message)
+            });
+        } else if(userName) {
+            auth.signOut().then(() => {
+                dispatch(setSignOutState());
+                history.push("/");
+            })
+            .catch((err) => alert(err.message))
+        }
+    };
 
     const setUser = (user) => {
         dispatch(setUserLoginDetails({
