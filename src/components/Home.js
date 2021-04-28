@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 import ImgSlider from './ImgSlider';
+import Viewers from './Viewers';
 import React from 'react'
 
 const Home = (props) => {
     return (
         <Container>
             <ImgSlider/>
+            <Viewers/>
         </Container>
     )
 }
 
-export default Home
 
 const Container = styled.main`
 position: relative;
@@ -29,3 +30,4 @@ padding: 0 calc( 3.5vw + 5px);
     opacity: 1;
     z-index: -1;
 }`
+export default Home
