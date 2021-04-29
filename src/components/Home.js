@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import ImgSlider from './ImgSlider';
 import Viewers from './Viewers';
+import Recommends from './Recommends';
 import React from 'react'
 
 const Home = (props) => {
@@ -8,6 +9,7 @@ const Home = (props) => {
         <Container>
             <ImgSlider/>
             <Viewers/>
+            <Recommends/>
         </Container>
     )
 }
@@ -18,7 +20,6 @@ position: relative;
 min-height: calc(100vh - 250px);
 overflow-x: hidden;
 display: block;
-top:72px;
 padding: 0 calc( 3.5vw + 5px);
 
 &:after{
