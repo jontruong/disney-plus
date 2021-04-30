@@ -3,13 +3,30 @@ import ImgSlider from './ImgSlider';
 import Viewers from './Viewers';
 import Recommends from './Recommends';
 import React from 'react'
+import NewToDisney from './NewToDisney';
+import Originals from './Originals';
+import Trending from './Trending';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from'react-redux';
+import db from '../firebase';
+import { setMovies } from '../features/movie/movieSlice';
+import { selectUserName } from '../features/user/userSlice';
 
 const Home = (props) => {
-    return (
+    const dispatch = useDispatch();
+    const userName = useSelector(selectUserName);
+    let recommends = [];
+    let newDisney = [];
+    let originals = [];
+    let trending = [];  
+      return (
         <Container>
             <ImgSlider/>
             <Viewers/>
             <Recommends/>
+            <NewToDisney/>
+            <Originals/>
+            <Trending/>
         </Container>
     )
 }
