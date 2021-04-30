@@ -1,33 +1,25 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
 import React from 'react'
+import { useSelector } from 'react-redux';
+import { selectNewDisney } from '../features/movie/movieSlice';
 
 const NewToDisney = () => {
+    const movies = useSelector(selectNewDisney);
     return (
         <Container>
             <h4>New to Disney+</h4>
             <Content>
-                <Wrap>
-                <Link to ="/">
-                        <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/4BCFB7A813E9037EEAB86851852F83C94C5CD3105F7C6E51DBE2E43CD9945C37/badging?width=400&aspectRatio=1.78&format=jpeg&label=originals" alt="" />
-                </Link>
-                </Wrap>
-                <Wrap>
-                <Link to ="/">
-                        <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/341AE85B6C1423B9042B5F2E786645EE551B9D546C3D263B220A4727617FD2B8/badging?width=400&aspectRatio=1.78&format=jpeg&label=originals" alt="" />
-                </Link>
-                </Wrap>
-                <Wrap>
-                <Link to ="/">
-                        <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/277C70BE07BBFAD1A5B452BE95931E4AF066D6741ED43BC45AE676D6C7B32300/badging?width=400&aspectRatio=1.78&format=jpeg&label=originals" alt="" />
-                </Link>
-                </Wrap>
-                <Wrap>
-                <Link to ="/">
-                        <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/7EBAD9ACDF30C67D314C86F8C64886DE82BD41C0C97D29EAD46CF074FD7FA67E/scale?width=400&aspectRatio=1.78&format=jpeg" alt="" />
-                </Link>
-                </Wrap>
+            {
+                    movies && movies.map((movie, key) => (
+                        <Wrap key={key}>
+                            {movie.id}
+                            <Link to = { '/detail/' + movie.id}>
+                                <img src={movie.cardImg} alt ={movie.title} />
+                            </Link>
+                        </Wrap>
+                    ))
+                }
             </Content>
             
         </Container>

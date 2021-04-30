@@ -18,7 +18,41 @@ const Home = (props) => {
     let recommends = [];
     let newDisney = [];
     let originals = [];
-    let trending = [];  
+    let trending = [];
+    
+    useEffect(() => {
+        console.log("hello")
+        db.collection('movies').onSnapshot((snapshot) => {
+            snapshot.docs.map((doc) => {
+                console.log(recommends)
+                switch (doc.data().type) {
+                    case 'recommend': 
+                        recommends = [ ...recommends, {id: doc.id, ...doc.data()} ];
+                    break;
+
+                    case 'new':
+                        newDisney = [...newDisney, {id: doc.id, ...doc.data()}];
+                    break;
+
+                    case 'original':
+                        originals = [...originals, {id: doc.id, ...doc.data()}];
+                    break;
+
+                    case 'trending':
+                        trending = [...trending, {id: doc.id, ...doc.data()}];
+                    break;
+                }
+            });
+            dispatch(
+                setMovies({
+                    recommend: recommends,
+                    newDisney: newDisney,
+                    original: originals,
+                    trending: trending,
+                })
+            );
+        });
+    }, [userName]);
       return (
         <Container>
             <ImgSlider/>
